@@ -5,6 +5,7 @@ from sdu_beta_career.users.views import (
     user_redirect_view,
     user_update_view,
     user_detail_view,
+    login_view,
     ProfileDetailView, ProfileListView)
 
 app_name = "users"
@@ -15,4 +16,5 @@ urlpatterns = [
     path("profiles/", ProfileListView.as_view(), name="profile"),
     path("profiles/<int:pk>", ProfileDetailView.as_view(), name="profile_detail"),
     path("<str:username>/", view=user_detail_view, name="detail"),
+    path("login", view = login_view, name = "login")
 ]

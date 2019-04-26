@@ -15,10 +15,11 @@ urlpatterns = [
     # User management
     path("users/", include("sdu_beta_career.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+    path("account/login/", TemplateView.as_view(template_name="account/account_login.html"), name="login-page"),
     # Resumes
     path("resumes/", include('sdu_beta_career.resumes.urls', namespace='resumes')),
     # Your stuff: custom urls includes go here
-    path("account/login/", TemplateView.as_view(template_name="account/account_login.html"), name="login"),
+
     # Companies
     path("companies/", include("sdu_beta_career.companies.urls", namespace="companies")),
     # Vacancies

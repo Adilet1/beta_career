@@ -1,8 +1,9 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
+from django.http import HttpResponseRedirect
 
 from ..access_control.config import Policy
 from .forms import ProfileEditForm
@@ -10,6 +11,15 @@ from .models import Profile
 
 User = get_user_model()
 
+def login_view(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username = username, password = password)
+    if user is not None:
+        login(request, user)
+        return HttpResponseRedirect(reverse('account_login'))
+    else:
+        return HttpResponseRedirect(reverse('login-page'))
 
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
